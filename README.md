@@ -64,7 +64,7 @@
 | address_bottom | string     | null: false                    |
 | address_detail | string     |                                |
 | phone_number   | string     | null: false                    |
-| order_history  | references | null: false                    |
+| order_history  | references | null: false foreign_key: true  |
 
 ### Association
 
@@ -72,10 +72,10 @@
 
 ## order_historiesテーブル
 
-| Column   | Type       | Options                        |
-| -------- | ---------- | ------------------------------ |
-| user     | references | null: falser foreign_key: true |
-| item     | references | null: falser foreign_key: true |
+| Column   | Type       | Options                       |
+| -------- | ---------- | ----------------------------- |
+| user     | references | null: false foreign_key: true |
+| item     | references | null: false foreign_key: true |
 
 ### Association
 
