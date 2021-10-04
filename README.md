@@ -15,6 +15,7 @@
 
 - has_many :items
 - has_many :comments
+- has_many :purchases
 - has_many :favorites
 
 ## itemsテーブル
@@ -35,6 +36,7 @@
 
 - belongs_to :user
 - has_many :comments
+- has_one :purchase
 - has_many :favorites
 
 ## commentsテーブル
@@ -44,6 +46,27 @@
 | comment | Text       | null: false                   |
 | user    | references | null: false foreign_key: true |
 | item    | references | null: false foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+
+## purchasesテーブル
+
+| Column         | Type       | Options                        |
+| -------------- | ---------- | ------------------------------ |
+| card_number    | integer    | null: false                    |
+| card_expiry    | date       | null: false                    |
+| card_code      | integer    | null: false                    |
+| address_number | string     | null: false                    |
+| address_top    | string     | null: false                    |
+| address_middle | string     | null: false                    |
+| address_bottom | string     | null: false                    |
+| address_detail | string     |                                |
+| phone_number   | integer    | null: false                    |
+| user           | references | null: falser foreign_key: true |
+| item           | references | null: falser foreign_key: true |
 
 ### Association
 
