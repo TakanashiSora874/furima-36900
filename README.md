@@ -64,10 +64,11 @@
 | address_bottom | string     | null: false                    |
 | address_detail | string     |                                |
 | phone_number   | string     | null: false                    |
+| order_history  | references | null: false                    |
 
 ### Association
 
-- has_one :order_history
+- belongs_to :order_history
 
 ## order_historiesテーブル
 
@@ -75,13 +76,12 @@
 | -------- | ---------- | ------------------------------ |
 | user     | references | null: falser foreign_key: true |
 | item     | references | null: falser foreign_key: true |
-| purchase | references | null: falser foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
-- belongs_to :purchase
+- has_one :purchase
 
 ## favorites (user_item) テーブル
 
