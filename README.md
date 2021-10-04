@@ -9,6 +9,8 @@
 | encrypted_password | string | null: false              |
 | first_name         | string | null: false              |
 | last_name          | string | null: false              |
+| first_name_kana    | string | null: false              |
+| last_name_kana     | string | null: false              |
 | birthday           | date   | null: false              |
 
 ### Association
@@ -16,27 +18,29 @@
 - has_many :items
 - has_many :comments
 - has_many :purchases
+- has_many :order_histories
 - has_many :favorites
 
 ## itemsテーブル
 
-| Column        | Type       | Options                       |
-| ------------- | ---------- | ----------------------------- |
-| title         | string     | null: false                   |
-| explanation   | text       | null: false                   |
-| category      | string     | null: false                   |
-| status        | string     | null: false                   |
-| delivery_fee  | string     | null: false                   |
-| delivery_area | string     | null: false                   |
-| delivery_day  | string     | null: false                   |
-| price         | integer    | null: false                   |
-| user          | references | null: false foreign_key: true |
+| Column           | Type       | Options                       |
+| ---------------- | ---------- | ----------------------------- |
+| title            | string     | null: false                   |
+| explanation      | text       | null: false                   |
+| category_id      | integer    | null: false                   |
+| status_id        | integer    | null: false                   |
+| delivery_fee_id  | integer    | null: false                   |
+| delivery_area_id | integer    | null: false                   |
+| delivery_day_id  | integer    | null: false                   |
+| price            | integer    | null: false                   |
+| user             | references | null: false foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - has_many :comments
 - has_one :purchase
+- has_one :order_history
 - has_many :favorites
 
 ## commentsテーブル
@@ -56,17 +60,24 @@
 
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
-| card_number    | integer    | null: false                    |
-| card_expiry    | date       | null: false                    |
-| card_code      | integer    | null: false                    |
 | address_number | string     | null: false                    |
-| address_top    | string     | null: false                    |
+| delivery_area  | string     | null: false                    |
 | address_middle | string     | null: false                    |
 | address_bottom | string     | null: false                    |
 | address_detail | string     |                                |
-| phone_number   | integer    | null: false                    |
-| user           | references | null: falser foreign_key: true |
-| item           | references | null: falser foreign_key: true |
+| phone_number   | string     | null: false                    |
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+
+## order_historiesテーブル
+
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: falser foreign_key: true |
+| item   | references | null: falser foreign_key: true |
 
 ### Association
 
