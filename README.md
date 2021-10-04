@@ -18,7 +18,7 @@
 - has_many :items
 - has_many :comments
 - has_many :order_histories
-- has_many :items, through: :favorites
+- has_many :favorites
 
 ## itemsテーブル
 
@@ -39,7 +39,7 @@
 - belongs_to :user
 - has_many :comments
 - has_one :order_history
-- has_many :users, through: :favorites
+- has_many :favorites
 
 ## commentsテーブル
 
