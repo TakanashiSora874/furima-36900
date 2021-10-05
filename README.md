@@ -56,15 +56,15 @@
 
 ## purchasesテーブル
 
-| Column         | Type       | Options                        |
-| -------------- | ---------- | ------------------------------ |
-| address_number | string     | null: false                    |
-| delivery_area  | integer    | null: false                    |
-| address_middle | string     | null: false                    |
-| address_bottom | string     | null: false                    |
-| address_detail | string     |                                |
-| phone_number   | string     | null: false                    |
-| order_history  | references | null: false foreign_key: true  |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| address_number   | string     | null: false                    |
+| delivery_area_id | integer    | null: false                    |
+| address_middle   | string     | null: false                    |
+| address_bottom   | string     | null: false                    |
+| address_detail   | string     |                                |
+| phone_number     | string     | null: false                    |
+| order_history    | references | null: false foreign_key: true  |
 
 ### Association
 
