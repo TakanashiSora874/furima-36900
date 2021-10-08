@@ -31,6 +31,14 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("メールアドレスは不正な値です")
       end
 
+      it '重複したメールアドレスは登録できない' do
+        @user.save
+        another_user = FactoryBot.build(:user)
+        another_user.email = @user.email
+        another_user.valid?
+        expect(another_user.errors.full_messages).to include("メールアドレスはすでに存在します")
+      end
+
       it 'パスワードが空だと登録できない' do
         @user.password = ''
         @user.valid?
@@ -43,8 +51,15 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("パスワードは6文字以上で入力してください")
       end
 
-      it 'パスワードには英字と数字が含まれてないと登録できない' do
+      it 'パスワードは英字のみでは登録できない' do
         @user.password = 'rinpana'
+        @user.password_confirmation = @user.password
+        @user.valid?
+        expect(@user.errors.full_messages).to include("パスワードには英字と数字の両方を含めて設定してください")
+      end
+
+      it 'パスワードは数字のみでは登録できない' do
+        @user.password = '31415926'
         @user.password_confirmation = @user.password
         @user.valid?
         expect(@user.errors.full_messages).to include("パスワードには英字と数字の両方を含めて設定してください")
@@ -68,26 +83,38 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("お名前(氏名)を入力してください")
       end
 
+      it 'お名前(名字)に半角文字が含まれていると登録できない' do
+        @user.last_name = Faker::Name
+        @user.valid?
+        expect(@user.errors.full_messages).to include("お名前(名字)には全角で入力してください")
+      end
+
+      it 'お名前(名字)に半角文字が含まれていると登録できない' do
+        @user.last_name = Faker::Name
+        @user.valid?
+        expect(@user.errors.full_messages).to include("お名前(名字)には全角で入力してください")
+      end
+
       it 'お名前カナ(名字)が空だと登録できない' do
         @user.last_name_kana = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("お名前カナ(名字)にはカタカナで入力してください")
+        expect(@user.errors.full_messages).to include("お名前カナ(名字)を入力してください")
       end
 
       it 'お名前カナ(氏名)が空だと登録できない' do
         @user.first_name_kana = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("お名前カナ(氏名)にはカタカナで入力してください")
+        expect(@user.errors.full_messages).to include("お名前カナ(氏名)を入力してください")
       end
 
       it 'お名前カナ(名字)がカタカナでないと登録できない' do
-        @user.last_name_kana = 'かめだ'
+        @user.last_name_kana = Gimei.last.hiragana
         @user.valid?
         expect(@user.errors.full_messages).to include("お名前カナ(名字)にはカタカナで入力してください")
       end
 
       it 'お名前カナ(氏名)がカタカナでないと登録できない' do
-        @user.first_name_kana = 'こうき'
+        @user.first_name_kana = Gimei.first.hiragana
         @user.valid?
         expect(@user.errors.full_messages).to include("お名前カナ(氏名)にはカタカナで入力してください")
       end
