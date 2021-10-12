@@ -11,3 +11,14 @@ ja:
         last_name_kana: お名前カナ(名字)
         first_name_kana: お名前カナ(氏名)
         birthday: 生年月日
+
+      item:
+        image: 商品画像
+        title: 商品名
+        explanation: 商品の説明
+        category_id: カテゴリー
+        status_id: 商品の状態
+        delivery_fee_id: 配送料の負担
+        delivery_area_id: 発送元の地域
+        delivery_day_id: 発送までの日数
+        price: 価格
