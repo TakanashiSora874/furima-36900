@@ -43,39 +43,45 @@ RSpec.describe Item, type: :model do
     end
 
     it 'カテゴリーが空では出品できない' do
-      @item.category_id = ''
+      @item.category_id = nil
       @item.valid?
       expect(@item.errors.full_messages).to include("カテゴリーを選択してください")
     end
 
     it '商品の状態が空では出品できない' do
-      @item.status_id = ''
+      @item.status_id = nil
       @item.valid?
       expect(@item.errors.full_messages).to include("商品の状態を選択してください")
     end
 
     it '配送料の負担が空では出品できない' do
-      @item.delivery_fee_id = ''
+      @item.delivery_fee_id = nil
       @item.valid?
       expect(@item.errors.full_messages).to include("配送料の負担を選択してください")
     end
 
     it '配送元の地域が空では出品できない' do
-      @item.delivery_area_id = ''
+      @item.delivery_area_id = nil
       @item.valid?
       expect(@item.errors.full_messages).to include("発送元の地域を選択してください")
     end
 
     it '配送までの日数が空では出品できない' do
-      @item.delivery_day_id = ''
+      @item.delivery_day_id = nil
       @item.valid?
       expect(@item.errors.full_messages).to include("発送までの日数を選択してください")
     end
 
     it '価格が空では出品できない' do
-      @item.price = ''
+      @item.price = nil
       @item.valid?
       expect(@item.errors.full_messages).to include("価格を入力してください")
+    end
+
+    it '価格に半角数字以外が含まれている場合は出品できない' do
+      @item.price = 'aaa'
+      @item.valid?
+      expect(@item.errors.full_messages).to include("価格は半角数字で入力してください")
     end
 
     it '価格が299円以下では出品できない' do

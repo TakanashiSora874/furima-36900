@@ -13,6 +13,7 @@ class Item < ApplicationRecord
   validates :delivery_area_id, presence: { message: 'を選択してください' }
   validates :delivery_day_id, presence: { message: 'を選択してください' }
   validates :price, presence: { message: 'を入力してください' }
+  validates :price, numericality: { message: 'は半角数字で入力してください'}
   validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "は300円〜9,999,999円の間で設定してください" }
 
   extend ActiveHash::Associations::ActiveRecordExtensions
