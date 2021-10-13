@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :last_name, presence: { message: 'を入力してください' }
   validates :first_name, presence: { message: 'を入力してください' }
 
-  NAME_REGEX = /\A(?=.*?[あ-んァ-ヶ一-龥々ー])[あ-んァ-ヶ一-龥々ー]+\z/i
+  NAME_REGEX = /\A(?=.*?[あ-んァ-ヶ一-龥々ー])[あ-んァ-ヶ一-龥々ー]+\z/i.freeze
   validates_format_of :last_name, with: NAME_REGEX, message: 'には全角で入力してください'
   validates_format_of :first_name, with: NAME_REGEX, message: 'には全角で入力してください'
 
