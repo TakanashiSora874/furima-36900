@@ -2,6 +2,7 @@ require "date"
 
 FactoryBot.define do
   factory :item do
+    image             {Rack::Test::UploadedFile.new(File.join(Rails.root,'app/assets/images/マホイップ.png'))}
     title             {Faker::Alphanumeric.alphanumeric(number:10)}
     explanation       {Faker::Alphanumeric.alphanumeric(number:100)}
     category_id       {Faker::Number.between(from: 1, to: 10)}
