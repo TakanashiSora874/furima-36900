@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_12_100852) do
+ActiveRecord::Schema.define(version: 2021_10_25_070430) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,37 @@ ActiveRecord::Schema.define(version: 2021_10_12_100852) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "oder_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_oder_histories_on_item_id"
+    t.index ["user_id"], name: "index_oder_histories_on_user_id"
+  end
+
+  create_table "order_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_order_histories_on_item_id"
+    t.index ["user_id"], name: "index_order_histories_on_user_id"
+  end
+
+  create_table "purchases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "address_number", null: false
+    t.integer "delivery_area_id", null: false
+    t.string "address_middle", null: false
+    t.string "address_bottom", null: false
+    t.string "address_detail"
+    t.string "phone_number", null: false
+    t.bigint "order_history_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_history_id"], name: "index_purchases_on_order_history_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -68,4 +99,9 @@ ActiveRecord::Schema.define(version: 2021_10_12_100852) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "items", "users"
+  add_foreign_key "oder_histories", "items"
+  add_foreign_key "oder_histories", "users"
+  add_foreign_key "order_histories", "items"
+  add_foreign_key "order_histories", "users"
+  add_foreign_key "purchases", "order_histories"
 end

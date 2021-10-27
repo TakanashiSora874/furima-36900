@@ -22,3 +22,13 @@ ja:
         delivery_area_id: 発送元の地域
         delivery_day_id: 発送までの日数
         price: 価格
+
+  activemodel:
+    attributes:
+      order_history_purchase:
+        address_number: 郵便番号
+        delivery_area_id: 都道府県
+        address_middle: 市区町村
+        address_bottom: 番地
+        phone_number: 電話番号
+        token: カード情報
