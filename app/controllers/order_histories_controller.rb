@@ -1,8 +1,8 @@
 class OrderHistoriesController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_item
 
   def index
-    @item = Item.find(params[:item_id])
     @order_history_purchase = OrderHistoryPurchase.new
     if @item.user_id == current_user.id || @item.order_history != nil
       redirect_to root_path
@@ -10,7 +10,6 @@ class OrderHistoriesController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_history_purchase = OrderHistoryPurchase.new(order_params)
     if @order_history_purchase.valid?
       pay_item
@@ -25,6 +24,10 @@ class OrderHistoriesController < ApplicationController
 
   def order_params
     params.require(:order_history_purchase).permit(:address_number, :delivery_area_id, :address_middle, :address_bottom, :address_detail, :phone_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
+  end
+
+  def find_item
+    @item = Item.find(params[:item_id])
   end
 
   def pay_item
